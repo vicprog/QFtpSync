@@ -1,8 +1,5 @@
 #include "FtpProccessing.h"
 
-//#include<QCoreApplication>
-//#include<QNetworkAccessManager>
-//#include<QNetworkReply>
 #include<QFile>
 #include<QDebug>
 #include <QFileInfo>
@@ -36,7 +33,7 @@ void CFtpProccessing::run()
   // connect to server
   if (!ftpClient.Login(logonInfo))
   {
-    qDebug() << "Can’t login!";
+    qDebug() << "Canâ€™t login!";
     return;
   }
   std::wstring dir = m_ftpData.removeDir.toStdWString();
@@ -51,7 +48,7 @@ bool CFtpProccessing::list(CFTPClient* ftpClient, std::wstring& dir)
 {
   TFTPFileStatusShPtrVec vstrFileList;
   
-  if (!ftpClient->NameList(dir, vstrFileList))
+  if (!ftpClient->NameList(dir, vstrFileList, true))
     return false;
 
   if (vstrFileList.empty())
@@ -67,7 +64,7 @@ bool CFtpProccessing::list(CFTPClient* ftpClient, std::wstring& dir)
       if (!QFile::exists(result))
       {
         createFullPath(result);
-        ftpClient->DownloadFile(data->Name(), result.toStdWString());
+        ftpClient->DownloadFile(data->Name(), result.toStdWString(),CRepresentation(CType::Image()), true);
       }
     }
   }

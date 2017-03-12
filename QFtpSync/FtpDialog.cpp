@@ -55,7 +55,7 @@ SFtpData CFtpDialog::getFtpData()
   data.localDir = ui.leLocalDir->text();
   data.removeDir = ui.leRemoveDir->text();
   data.periodSec = ui.lePeriodicity->text().toUInt();
-  data.name = data.user + "@" + data.addres + ":" + data.port + data.removeDir;
+  data.name = data.user + "@" + data.addres + ":" + QString::number(data.port) + data.removeDir;
   data.lastStart = QDateTime::currentDateTime().addSecs(-data.periodSec);
   return data;
 }
